@@ -1,0 +1,377 @@
+/* Reset default browser styles and set global properties */
+* {
+    margin: 0; /* Remove default margin from all elements */
+    padding: 0; /* Remove default padding from all elements */
+    box-sizing: border-box; /* Include padding and border in element's total width/height */
+    font-family: Arial, Helvetica, sans-serif; /* Set global font */
+}
+
+/* Body styles */
+body {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    min-height: 100vh; /* Ensure body height covers the full viewport */
+}
+
+/* Main carousel container */
+.carousel {
+    position: relative; /* Position relative to allow absolute positioning of child elements */
+    width: 100vw; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    overflow: hidden; /* Hide content that overflows the container */
+}
+
+/* Information box for character details */
+.item .info-box {
+    position: absolute; /* Position relative to the carousel */
+    left: 5%; /* Position 5% from the left */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust position to center vertically */
+    width: 450px; /* Set width of the info box */
+    height: 280px; /* Set height of the info box */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center content vertically */
+    z-index: 1; /* Set stacking order */
+    overflow: hidden; /* Hide overflow content */
+    background: rgba(53, 50, 50, 0.1); /* Semi-transparent background for glassmorphism effect */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari-specific blur effect */
+    border: 1px solid rgba(255, 255, 255, 1); /* White border */
+    border-radius: 15px; /* Rounded corners */
+}
+
+/* Active state for the info box */
+.item.active .info-box {
+    z-index: 2; /* Bring the active info box to the front */
+}
+
+/* Slider container inside the info box */
+.info-box .info-slider {
+    height: inherit; /* Inherit height from parent */
+    transition: 0.5s ease; /* Smooth transition for animations */
+}
+
+/* Individual info item inside the slider */
+.info-slider .info-item {
+    height: inherit; /* Inherit height from parent */
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: center; /* Center content vertically */
+    color: #fff; /* Set text color to white */
+    transform: translateY(calc(var(--i) * 100%)); /* Position based on custom index */
+    position: relative; /* Position relative for z-index */
+    z-index: 3; /* Ensure content is above other elements */
+    padding: 0 20px; /* Add horizontal padding */
+}
+
+/* Heading inside the info item */
+.info-item h2 {
+    font-size: 40px; /* Set font size */
+    line-height: 1; /* Set line height */
+    position: relative; /* Position relative for z-index */
+    z-index: 3; /* Ensure heading is above other elements */
+}
+
+/* Paragraph inside the info item */
+.info-item p {
+    font-size: 16px; /* Set font size */
+    margin: 15px 0 20px; /* Add vertical spacing */
+    position: relative; /* Position relative for z-index */
+    z-index: 3; /* Ensure paragraph is above other elements */
+}
+
+/* Button inside the info item */
+.info-item .button {
+    display: inline-flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    width: 380px; /* Set button width */
+    height: 40px; /* Set button height */
+    background: transparent; /* Transparent background */
+    border: 2px solid #fff; /* White border */
+    border-radius: 40px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1); /* Add subtle shadow */
+    font-size: 16px; /* Set font size */
+    color: #fff; /* Set text color to white */
+    text-decoration: none; /* Remove underline from links */
+    font-weight: 600; /* Set font weight */
+    position: relative; /* Position relative for z-index */
+    z-index: 3; /* Ensure button is above other elements */
+}
+
+/* Image box for character images */
+.item .image-box {
+    position: absolute; /* Position relative to the carousel */
+    left: 35%; /* Position 35% from the left */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust position to center vertically */
+    width: 800px; /* Set width of the image box */
+    height: 620px; /* Set height of the image box */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center content vertically */
+    overflow: hidden; /* Hide overflow content */
+    z-index: 2; /* Set stacking order */
+}
+
+/* Slider container inside the image box */
+.image-box .image-slider {
+    width: inherit; /* Inherit width from parent */
+    height: inherit; /* Inherit height from parent */
+    transition: 0.5s ease; /* Smooth transition for animations */
+}
+
+/* Individual image item inside the slider */
+.image-slider .image-item {
+    width: inherit; /* Inherit width from parent */
+    height: inherit; /* Inherit height from parent */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    transform: translateX(calc(var(--i) * 100%)); /* Position based on custom index */
+}
+
+/* Character image styling */
+.image-item img {
+    height: 600px; /* Set image height */
+    pointer-events: none; /* Disable interaction with the image */
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 12)); /* Add shadow effect */
+    transform: scale(0); /* Initially scale down the image */
+    transition: 0.5s ease; /* Smooth transition for animations */
+}
+
+/* Active state for character images */
+.item.active .image-item img {
+    transform: scale(1); /* Scale image to full size */
+}
+
+/* Thumbnail navigation container */
+.thumb {
+    position: absolute; /* Position relative to the carousel */
+    right: 5%; /* Position 5% from the right */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust position to center vertically */
+    list-style: none; /* Remove default list styling */
+    z-index: 3; /* Set stacking order */
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack thumbnails vertically */
+    gap: 10px; /* Add spacing between thumbnails */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+/* Individual thumbnail styling */
+.thumb li {
+    width: 75px; /* Set thumbnail width */
+    height: 75px; /* Set thumbnail height */
+    border-radius: 50%; /* Make thumbnails circular */
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1); /* Add shadow effect */
+    border: 2px solid black; /* Add black border */
+    overflow: hidden; /* Hide overflow content */
+}
+
+/* Selected thumbnail state */
+.thumb li.selected {
+    border: 3px solid #fff; /* Highlight selected thumbnail with white border */
+}
+
+/* Thumbnail image styling */
+.thumb li img {
+    width: 100%; /* Set image width to fill thumbnail */
+    height: 100%; /* Set image height to fill thumbnail */
+    object-fit: cover; /* Ensure image covers the thumbnail area */
+    height: 170px; /* Set image height */
+}
+
+/* Background styling for each item */
+.item .background {
+    position: absolute; /* Position relative to the carousel */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    width: 100%; /* Full width of the carousel */
+    height: 100%; /* Full height of the carousel */
+    opacity: 0; /* Initially hide the background */
+    visibility: hidden; /* Initially make the background invisible */
+    transition: 0.5s ease; /* Smooth transition for animations */
+    z-index: 0; /* Set stacking order */
+}
+
+/* Active state for background */
+.item.active .background {
+    opacity: 1 !important; /* Make the background visible */
+    visibility: visible !important; /* Ensure visibility */
+}
+
+/* Background gradient effect */
+.item .background::before {
+    content: ''; /* Add empty content for the pseudo-element */
+    position: absolute; /* Position relative to the background */
+    left: 50%; /* Center horizontally */
+    top: 50%; /* Center vertically */
+    transform: translate(-50%, -50%); /* Adjust position to center */
+    width: 500px; /* Set width of the gradient */
+    height: 500px; /* Set height of the gradient */
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border-radius: 50%; /* Make the gradient circular */
+    filter: blur(300px); /* Add blur effect */
+}
+
+/* Responsive Design */
+/* Tablet and smaller laptops */
+@media screen and (max-width: 1024px) {
+    .item .info-box {
+        width: 400px; /* Reduce info box width */
+        height: 260px; /* Reduce info box height */
+        left: 2%; /* Adjust position */
+    }
+
+    .item .image-box {
+        left: 32%; /* Adjust position */
+        width: 600px; /* Reduce image box width */
+        height: 520px; /* Reduce image box height */
+    }
+
+    .image-item img {
+        height: 500px; /* Reduce image height */
+    }
+
+    .thumb {
+        right: 2%; /* Adjust position */
+    }
+
+    .info-item .button {
+        width: 300px; /* Reduce button width */
+    }
+}
+
+/* Tablets and large phones */
+@media screen and (max-width: 768px) {
+    .item .info-box {
+        width: 90%; /* Make info box take up most of the screen width */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -50%); /* Adjust position */
+        top: 25%; /* Adjust vertical position */
+    }
+
+    .item .image-box {
+        width: 100%; /* Make image box full width */
+        height: 400px; /* Reduce image box height */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -50%); /* Adjust position */
+        top: 65%; /* Adjust vertical position */
+    }
+
+    .image-item img {
+        height: 380px; /* Reduce image height */
+    }
+
+    .thumb {
+        display: flex; /* Use flexbox for alignment */
+        flex-direction: row; /* Arrange thumbnails horizontally */
+        gap: 10px; /* Add spacing between thumbnails */
+        right: 50%; /* Center horizontally */
+        transform: translateX(50%); /* Adjust position */
+        top: auto; /* Remove top positioning */
+        bottom: 20px; /* Position at the bottom */
+    }
+
+    .thumb li {
+        width: 50px; /* Reduce thumbnail width */
+        height: 50px; /* Reduce thumbnail height */
+    }
+
+    .thumb li img {
+        width: 100%; /* Set image width to fill thumbnail */
+        height: 100%; /* Set image height to fill thumbnail */
+        object-fit: cover; /* Ensure image covers the thumbnail area */
+        object-position: top center; /* Focus on the top center of the image */
+        transform: scale(1.2); /* Slightly zoom in on the image */
+    }
+
+    .info-item h2 {
+        font-size: 32px; /* Reduce heading font size */
+        text-align: center; /* Center align text */
+    }
+
+    .info-item p {
+        font-size: 14px; /* Reduce paragraph font size */
+    }
+
+    .info-item .button {
+        width: 100%; /* Make button full width */
+        height: 35px; /* Reduce button height */
+        font-size: 14px; /* Reduce font size */
+    }
+}
+
+/* Mobile phones */
+@media screen and (max-width: 480px) {
+    .item .info-box {
+        height: 240px; /* Reduce info box height */
+        top: 20%; /* Adjust vertical position */
+    }
+
+    .item .image-box {
+        height: 300px; /* Reduce image box height */
+        top: 60%; /* Adjust vertical position */
+    }
+
+    .image-item img {
+        height: 280px; /* Reduce image height */
+    }
+
+    .thumb {
+        bottom: 10px; /* Position thumbnails closer to the bottom */
+    }
+
+    .thumb li {
+        width: 40px; /* Reduce thumbnail width */
+        height: 40px; /* Reduce thumbnail height */
+    }
+
+    .thumb li img {
+        transform: scale(1.5); /* Zoom in on the image */
+    }
+
+    .info-item h2 {
+        font-size: 24px; /* Reduce heading font size */
+    }
+
+    .info-item p {
+        font-size: 12px; /* Reduce paragraph font size */
+        margin: 10px 0 15px; /* Adjust spacing */
+    }
+
+    .info-item .button {
+        height: 30px; /* Reduce button height */
+        font-size: 12px; /* Reduce font size */
+    }
+
+    .item .background::before {
+        width: 300px; /* Reduce gradient width */
+        height: 300px; /* Reduce gradient height */
+    }
+}
+
+/* Small mobile devices */
+@media screen and (max-width: 320px) {
+    .item .info-box {
+        height: 220px; /* Further reduce info box height */
+    }
+
+    .item .image-box {
+        height: 250px; /* Further reduce image box height */
+    }
+
+    .image-item img {
+        height: 230px; /* Further reduce image height */
+    }
+
+    .thumb li {
+        width: 35px; /* Further reduce thumbnail width */
+        height: 35px; /* Further reduce thumbnail height */
+    }
+
+    .thumb li img {
+        transform: scale(1.8); /* Further zoom in on the image */
+    }
+}
